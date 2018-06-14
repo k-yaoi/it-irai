@@ -3,10 +3,32 @@
 
   <div class="center jumbotron">
     <div class="text-center">
-      <h1>Welcome to the IT依頼</h1>
-      <%= link_to '依頼する', signup_path, class: 'btn btn-lg btn-primary' %>
+      <%= link_to '新規に依頼する', new_request_path, class: 'btn btn-lg btn-primary' %>
     </div>
   </div>
+
+<h3><%= current_user.name %>さんの依頼状況 </h3>
+<table class="table table-striped">
+  <tr>
+    <th>タイトル</th>
+    <th>内容</th>
+    <th>期日</th>
+    <th>作成日</th>
+    <th>...</th>
+    
+  </tr>
+  <% @requests.each do |request| %>
+    <tr>
+      <td><%= request.title %></td>
+      <td><%= request.description %></td>
+      <td><%= request.limit_date %></td>
+      <td><%= request.created_at %></td>
+      <td><%= link_to '詳細', request %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to '新規IT依頼', new_request_path %>
+
 <% else %>
   <% content_for :cover do %>
     <div class="cover">

@@ -7,7 +7,6 @@ class User < ApplicationRecord
   # パスワード暗号化
   has_secure_password
   
-  
-  
-  
+  has_many :requests
+
 end

@@ -1,0 +1,23 @@
+  <ul class="media-list">
+    <% @requests.each do |request| %>
+      <li class="media">
+        <div class="media-body">
+          <div>
+            <%= request.title %>
+          </div>
+          <div>
+            <%= request.description %>
+          </div>
+          <div>
+            <%= request.limit_date %>
+          </div>
+          <div>
+            <%= request.user_id %>
+          </div>
+          <div>
+            <%= request.updated_at %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>

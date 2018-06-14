@@ -1,0 +1,10 @@
+<h1>id: <%= @request.id %> の編集ページ</h1>
+
+<%= form_for(@request) do |f| %>
+  <%= f.label :title, 'タイトル' %>
+  <%= f.text_field :title %>
+
+  <%= f.submit '依頼する' %>
+<% end %>
+
+<%= link_to '一覧に戻る', request_path %>

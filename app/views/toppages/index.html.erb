@@ -2,39 +2,48 @@
 
   <p><%= current_user.role %> <%= current_user.name %>　さん</p>
 
-   <div class="center jumbotron">
+   <!--<div class="center jumbotron">-->
     <div class="text-center">
       <%= link_to '新規に依頼する', new_request_path, class: 'btn btn-lg btn-primary' %>
     </div>
-  </div>
+  <!--</div>-->
 
-<h3><%= current_user.name %>さんの依頼状況 </h3>
-<table class="table table-striped">
-  <tr>
-    <th>タイトル</th>
-    <th>内容</th>
-    <th>期日</th>
-    <th>作成日</th>
-    <th>ステータス</th>
-    <th>MIT担当者</th>
-    <th>詳細</th>
+  <% if @requests.exists? %>
 
-  </tr>
-  <% @requests.each do |request| %>
-    <tr>
-      <td><%= request.title %></td>
-      <td><%= request.description %></td>
-      <td><%= request.limit_date.strftime("%Y/%m/%d") %></td>
-      <td><%= request.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-      <td><%= request.status %></td>
-      <td><%= request.charge_user.to_s %> </td>
-    
-      <td><%= link_to '詳細', request , class: 'btn btn-sm btn-success'%></td>
+    <h3><%= current_user.name %>さんの依頼状況 </h3>
+    <table class="table table-striped">
+      <tr>
+        <th>タイトル</th>
+        <th>内容</th>
+        <th>期日</th>
+        <th>作成日</th>
+        <th>ステータス</th>
+        <th>MIT担当者</th>
+        <th>詳細</th>
       
-    </tr>
+      </tr>
+      <% @requests.each do |request| %>
+        <tr>
+          <td><%= request.title %></td>
+          <td><%= request.description %></td>
+          <td><%= request.limit_date.strftime("%Y/%m/%d") %></td>
+          <td><%= request.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+          <td><%= request.status %></td>
+          <td><%= request.charge_user.to_s %> </td>
+        
+          <td><%= link_to '詳細', request , class: 'btn btn-sm btn-success'%></td>
+          
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p><%= current_user.name %>さんの依頼はありません。 </p>
   <% end %>
-</table>
-<%= link_to '新規IT依頼', new_request_path %>
+  
+<div>
+  <%= render 'index_task', tasks: @tasks %>
+</div>
+
 
 <% else %>
   <% content_for :cover do %>

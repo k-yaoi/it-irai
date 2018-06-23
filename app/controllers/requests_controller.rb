@@ -3,8 +3,10 @@ class RequestsController < ApplicationController
   require 'date'
   
   def index
-    @requests = Request.all.order('created_at DESC').page(params[:page])
-    # @requests.where(status: "hoge")
+    # 対応済以外を渡す
+    @requests = Request.find_by_sql("select * from requests where status < 3 order by created_at desc")
+    # @requests = Request.all.order('created_at DESC').page(params[:page])
+    # @requests.where(status: "")
     # @requests = current_user.requests.order('created_at DESC').page(params[:page])
   end
 

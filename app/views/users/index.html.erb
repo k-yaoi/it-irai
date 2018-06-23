@@ -1,1 +1,36 @@
-<%= render 'users', users: @users %>
+<h1>■ユーザ一覧</h1>
+
+<div> 
+  <%= form_tag(users_path, method: "get") do %>
+    <%= label_tag :name, "名前" %><%= text_field_tag :name, params[:name] %>
+    <%= label_tag :name, "権限" %>
+    <%= select_tag :role, options_for_select(User.roles, :selected => params[:role]), include_blank: true %>
+    <%= submit_tag "検索" %>
+  <% end %>
+</div>
+
+<div> 
+
+  <table class="table table-striped">
+    <tr class="info">
+      <th>名前</th>
+      <th>メールアドレス</th>
+      <th>拠点</th>
+      <th>部門</th>
+      <th>権限</th>
+      <th>...</th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name%></td>
+        <td><%= user.email %></td>
+        <td><%= user.base %></td>
+        <td><%= user.dept %></td>
+        <td><%= user.role %></td>
+        <td><%= link_to '詳細', user %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= link_to '新規ユーザ登録', signup_path %>
+
+</div>

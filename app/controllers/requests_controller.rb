@@ -1,22 +1,31 @@
 class RequestsController < ApplicationController
   before_action :require_user_logged_in
+  require 'date'
   
   def index
-    @requests = Request.all
+    @requests = Request.all.order('created_at DESC').page(params[:page])
+    # @requests.where(status: "hoge")
+    # @requests = current_user.requests.order('created_at DESC').page(params[:page])
   end
 
   def show
     @request = Request.find(params[:id])
+    @user = User.find(@request.user)
   end
 
   def new
-    @request = Request.new
+    @request = Request.new(user_id: current_user.id,limit_date: Date.today+7,status: 0)
   end
 
   def update
     @request = Request.find(params[:id])
+    @request.charge_user = params[:charge_user_id] if params[:charge_user_id]
+    @request.status = params[:status] if params[:status]
 
-    if @request.update(request_params)
+    if params[:charge_user_id] && @request.save
+      flash[:success] = 'request は正常に更新されました'
+       redirect_back(fallback_location: root_url)
+    elsif @request.update(request_params)
       flash[:success] = 'request は正常に更新されました'
       redirect_to @request
     else
@@ -27,6 +36,7 @@ class RequestsController < ApplicationController
 
   def edit
     @request = Request.find(params[:id])
+    @user = User.find(@request.user)
   end
 
   def create
@@ -59,6 +69,6 @@ class RequestsController < ApplicationController
 
   # Strong Parameter
   def request_params
-    params.require(:request).permit(:title,:limit_date,:description)
+    params.require(:request).permit(:title,:limit_date,:description,:status,:charge_user)
   end
 end

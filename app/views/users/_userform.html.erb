@@ -1,0 +1,44 @@
+  <%= form_for(@user) do |f| %>
+    <%= render 'layouts/error_messages', model: f.object %>
+  
+    <div class="form-group">
+      <%= f.label :name, '氏名' %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  
+    <div class="form-group">
+      <%= f.label :email, 'メールアドレス' %>
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+  
+      <div class="form-group">
+        <%= f.label :password, 'パスワード' %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+    
+      <div class="form-group">
+        <%= f.label :password_confirmation, 'パスワード（確認用）' %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+
+    <div class="form-group">
+      <%= f.label :base, '拠点' %>
+      <%= f.text_field :base, class: 'form-control' %>
+    </div>
+  
+    <div class="form-group">
+      <%= f.label :dept, '部署名' %>
+      <%= f.text_field :dept, class: 'form-control' %>
+    </div>
+    
+    <% if @user.persisted? %>
+      <div class="form-group">
+        <%= f.label :role, '権限' %>
+        <%= f.select :role, User.roles.keys.to_a, {}, class: 'form-control' %>
+      </div>
+    <% else %>
+      <%= f.hidden_field :role, :value => "一般" %>
+    <% end %>
+
+    <%= f.submit '登録', class: 'btn btn-primary btn-block' %>
+  <% end %>

@@ -1,3 +1,58 @@
-<h1>id: <%= @user.id %> のユーザ詳細ページ</h1>
+<h1>ユーザ詳細ページ</h1>
 
-<p><%= @user.name %> <%= @user.email %></p>
+
+   <form class="form-horizontal">
+
+  	<div class="form-group">
+  		<label class="col-sm-3 control-label" for="InputText">ユーザID</label>
+  		<div class="col-sm-6">
+  			<input type="number" class="form-control" id="InputNumber" value=<%=  @user.id %> readonly>
+  		</div>
+		</div>
+
+  	<div class="form-group">
+  		<label class="col-sm-3 control-label" for="InputText">名前</label>
+  		<div class="col-sm-6">
+  			<input type="text" class="form-control" id="InputText" value=<%=  @user.name %> readonly>
+  		</div>
+		</div>
+  	<div class="form-group">
+  		<label class="col-sm-3 control-label" for="InputText">メールアドレス</label>
+  		<div class="col-sm-6">
+  			<input type="text" class="form-control" id="InputText" value=<%= @user.email %> readonly>
+  		</div>
+		</div>
+
+  	<div class="form-group">
+  		<label class="col-sm-3 control-label" for="InputText">拠点</label>
+  		<div class="col-sm-6">
+  			<input type="text" class="form-control" id="InputText" value=<%= @user.base %> readonly>
+  		</div>
+		</div>
+
+  	<div class="form-group">
+  		<label class="col-sm-3 control-label" for="InputText">部門</label>
+  		<div class="col-sm-6">
+  			<input type="text" class="form-control" id="InputText" value=<%= @user.dept %> readonly>
+  		</div>
+		</div>
+
+  	<div class="form-group">
+  		<label class="col-sm-3 control-label" for="InputText">権限</label>
+  		<div class="col-sm-6">
+  			<input type="text" class="form-control" id="InputText" value=<%= @user.role %> readonly>
+  		</div>
+		</div>
+
+  </form>
+
+
+	<%= link_to "編集", edit_user_path(@user), class: 'btn btn-primary'  %>
+	<% if current_user.id != @user.id %>	
+		<%= link_to "削除", @user, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger' %>
+	<% end %>
+	<br>
+	<!--admin権限の場合のみ表示する-->
+	<% if current_user.admin? %>
+		<%= link_to '一覧に戻る', users_path %>
+	<% end %>

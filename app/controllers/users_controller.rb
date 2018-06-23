@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   def index
     @users = User.all
+    # パラメータとして名前か性別を受け取っている場合は絞って検索する
+    @users = @users.get_by_name params[:name] if params[:name].present? 
+    @users = @users.get_by_role params[:role] if params[:role].present?
   end
 
   def show
@@ -25,12 +28,28 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      flash[:success] = 'user は正常に更新されました'
+      redirect_to @user
+    else
+      flash.now[:danger] = 'user は更新されませんでした'
+      render :edit
+    end
+
   end
 
   def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+
+    flash[:success] = 'ユーザは正常に削除されました'
+    redirect_to users_url
   end
 
   private

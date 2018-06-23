@@ -1,10 +1,11 @@
 <h1>id: <%= @request.id %> の編集ページ</h1>
 
-<%= form_for(@request) do |f| %>
-  <%= f.label :title, 'タイトル' %>
-  <%= f.text_field :title %>
 
-  <%= f.submit '依頼する' %>
-<% end %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= render 'form', request: @request %>
+  </div>
+</div>
+
 
 <%= link_to '一覧に戻る', request_path %>

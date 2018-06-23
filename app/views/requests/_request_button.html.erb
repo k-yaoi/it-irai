@@ -1,0 +1,5 @@
+<% if current_user.admin? && request.charge_user != current_user.id %>
+  <%= link_to '担当する', request_path(request, charge_user_id: current_user.id ,status: "対応中"), method: :patch, class: 'btn btn-sm btn-primary' %>
+<% elsif current_user.admin? %>
+  <%= link_to '解除する', request_path(request, charge_user_id: '',status: "新規"), method: :patch, class: 'btn btn-sm btn-primary' %>
+<% end %>

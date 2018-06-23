@@ -1,23 +1,36 @@
-  <ul class="media-list">
-    <% @requests.each do |request| %>
-      <li class="media">
-        <div class="media-body">
-          <div>
-            <%= request.title %>
-          </div>
-          <div>
-            <%= request.description %>
-          </div>
-          <div>
-            <%= request.limit_date %>
-          </div>
-          <div>
-            <%= request.user_id %>
-          </div>
-          <div>
-            <%= request.updated_at %>
-          </div>
-        </div>
-      </li>
-    <% end %>
-  </ul>
+<h1>■依頼一覧</h1>
+
+
+<div> 
+
+<table class="table table-striped">
+  <tr>
+    <th>タイトル</th>
+    <th>依頼者</th>
+    <th>依頼者所属</th>
+    <th>期日</th>
+    <th>作成日</th>
+    <th>ステータス</th>
+    <th>MIT担当者</th>
+    <th>詳細</th>
+    <th>　</th>
+
+  </tr>
+  <% @requests.each do |request| %>
+    <tr>
+      <td><%= request.title %></td>
+      <td><%= request.user.name %></td>
+      <td><%= request.user.dept %></td>
+      <td><%= request.limit_date %></td>
+      <td><%= request.created_at %></td>
+      <td><%= request.status %></td>
+      <td><%= request.charge_user.to_s %> </td>
+    
+      <td><%= link_to '詳細', request , class: 'btn btn-sm btn-success'%></td>
+      
+      <td id="request-button-<%= request.id %>"><%= render 'requests/request_button', request: request if current_user.admin?%></td>
+    </tr>
+  <% end %>
+</table>
+
+</div>

@@ -1,3 +1,6 @@
+<%= link_to '完了にする', request_path(request, charge_user_id: current_user.id ,status: "完了"), method: :patch, class: 'btn btn-sm btn-warning' %>
+
+
     <%= form_for(@request) do |f| %>
       <%= render 'layouts/error_messages', model: f.object %>
 
@@ -21,7 +24,7 @@
         <%= f.text_area :description, class: 'form-control', rows: 10 %>
       </div>
 
-      
+
       <% if @request.persisted? %>
         <div class="form-group">
           <%= f.label :status, '状況' %>
@@ -33,15 +36,20 @@
       
       <% if @request.persisted? %>
         <div class="form-group">
+          <%= f.label :message, '回答内容' %>
+          <%= f.text_area :message, class: 'form-control', rows: 10 %>
+        </div>
+
+        <div class="form-group">
           <%= f.label :charge_user, '' %>
-          <%= f.select :charge_user, class: 'form-control' %>
+          <%= f.text_field :charge_user, class: 'form-control' %>
         </div>
       <% else %>  
+        <%= f.hidden_field :message, :value => '' %>
         <%= f.hidden_field :charge_user, :value => '' %>
       <% end %>
 
-      
-      
-
       <%= f.submit '登録', class: 'btn btn-primary btn-block' %>
     <% end %>
+
+

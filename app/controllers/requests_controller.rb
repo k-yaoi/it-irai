@@ -71,6 +71,6 @@ class RequestsController < ApplicationController
 
   # Strong Parameter
   def request_params
-    params.require(:request).permit(:title,:limit_date,:description,:status,:charge_user)
+    params.require(:request).permit(:title,:limit_date,:description,:status,:charge_user,:message)
   end
 end

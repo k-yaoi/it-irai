@@ -2,11 +2,11 @@
 
   <p><%= current_user.role %> <%= current_user.name %>　さん</p>
 
-   <!--<div class="center jumbotron">-->
+   <div class="center jumbotron">
     <div class="text-center">
       <%= link_to '新規に依頼する', new_request_path, class: 'btn btn-lg btn-primary' %>
     </div>
-  <!--</div>-->
+  </div>
 
   <% if @requests.exists? %>
 
@@ -46,7 +46,9 @@
 
 
 <% else %>
-  <% content_for :cover do %>
+
+
+ <% content_for :cover do %>
     <div class="cover">
       <div class="cover-inner">
         <div class="cover-contents">

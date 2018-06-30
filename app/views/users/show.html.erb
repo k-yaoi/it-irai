@@ -36,15 +36,16 @@
 
   </form>
 
-  <div class="right_wrapper">
-		<%= link_to " edit", edit_user_path(@user), class: 'btn btn-primary glyphicon glyphicon-pencil'  %>
-		<% if current_user.id != @user.id %>	
-			<%= link_to " delete", @user, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger glyphicon glyphicon-trash' %>
+	<% if logged_in? %>
+	  <div class="right_wrapper">
+			<%= link_to " edit", edit_user_path(@user), class: 'btn btn-primary glyphicon glyphicon-pencil'  %>
+			<% if current_user.id != @user.id %>	
+				<%= link_to " delete", @user, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger glyphicon glyphicon-trash' %>
+			<% end %>
+		</div>
+		<!--admin権限の場合のみ表示する-->
+		<% if current_user.admin? %>
+			<%= link_to '一覧に戻る', users_path %>
 		<% end %>
-	</div>
-	<!--admin権限の場合のみ表示する-->
-	<% if current_user.admin? %>
-		<%= link_to '一覧に戻る', users_path %>
 	<% end %>
-
 </div>

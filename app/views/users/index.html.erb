@@ -1,13 +1,31 @@
 <h1>■ユーザ一覧</h1>
+<div class="container">
+  
+  <div　class="row col-xs-8"> 
+    <div class="panel-group">
+      <div class="panel panel-default">
+        
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <a data-toggle="collapse" data-parent="#sampleAccordion" href="#sampleAccordionCollapse1">
+              検索条件
+            </a>
+          </h3>
+        </div>
 
-<div> 
-  <%= form_tag(users_path, method: "get") do %>
-    <%= label_tag :name, "名前" %><%= text_field_tag :name, params[:name] %>
-    <%= label_tag :name, "権限" %>
-    <%= select_tag :role, options_for_select(User.roles, :selected => params[:role]), include_blank: true %>
-    <%= submit_tag "検索" %>
-  <% end %>
-</div>
+        <div class="panel-body">
+          <%= form_tag(users_path, method: "get") do %>
+            <%= label_tag :name, "名前" %><%= text_field_tag :name, params[:name] %>
+            <%= label_tag :name, "権限" %>
+            <%= select_tag :role, options_for_select(User.roles, :selected => params[:role]), include_blank: true %>
+            <%= submit_tag "検索" %>
+          <% end %>
+        </div>
+     </div>
+    </div>
+  </div>
+
+
 
 <div> 
 

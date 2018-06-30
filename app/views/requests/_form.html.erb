@@ -1,58 +1,66 @@
 
-  <% if @request.persisted? %>
-    <%= link_to '完了にする', request_path(request, charge_user_id: current_user.id ,status: "完了"), method: :patch, class: 'btn btn-sm btn-warning' %>
-  <% end %>
-
-  <%= form_for(@request) do |f| %>
-    <%= render 'layouts/error_messages', model: f.object %>
-
-    <div class="form-group">
-      <%= label :limit_date, '依頼者' %>
-      <%= text_field_tag "user_name",current_user.name ,:readonly => true, class: 'form-control' %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :limit_date, '期日' %>
-      <%= f.text_field :limit_date,  class: 'form-control' %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :title, 'タイトル' %>
-      <%= f.text_field :title, class: 'form-control' %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :description, '内容' %>
-      <%= f.text_area :description, class: 'form-control', rows: 10 %>
-    </div>
-
-
-    <% if @request.persisted? %>
+  <div class="row">
+    <%= form_for(@request) do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+  
       <div class="form-group">
-        <%= f.label :status, '状況' %>
-        <%= f.select :status, Request.statuses.keys.to_a, {},  class: 'form-control' %>
+        <%= label :limit_date, '依頼者' %>
+        <%= text_field_tag "user_name",current_user.name ,:readonly => true, class: 'form-control' %>
       </div>
-    <% else %>  
-      <%= f.hidden_field :status, :value => "新規" %>
-    <% end %>
+  
+      <div class="form-group">
+        <%= f.label :limit_date, '期日' %>
+        <%= f.text_field :limit_date,  class: 'form-control' %>
+      </div>
+  
+      <div class="form-group">
+        <%= f.label :title, 'タイトル' %>
+        <%= f.text_field :title, class: 'form-control' %>
+      </div>
+  
+      <div class="form-group">
+        <%= f.label :description, '内容' %>
+        <%= f.text_area :description, class: 'form-control', rows: 10 %>
+      </div>
+  
+      <% if @request.persisted? %>
     
-    <% if @request.persisted? %>
-      <div class="form-group">
-        <%= f.label :message, '回答内容' %>
-        <%= f.text_area :message, class: 'form-control', rows: 10 %>
-      </div>
+          <div class="form-group">
+            <%= f.label :message, '回答内容' %>
+            
+            <% if current_user.admin? %>
+              <%= f.text_area :message, class: 'form-control', rows: 10 %>
+            <% else %>
+              <%= f.text_area :message,:readonly => true, class: 'form-control', rows: 10 %>
+            <% end %>
+    
+          </div>
 
-      <div class="form-group">
-        <%= f.label :charge_user, '' %>
-        <%= f.text_field :charge_user_name,:readonly => true, class: 'form-control' %>
+          <div class="form-group">
+            <%= f.label :status, '状況' %>
+            <% if current_user.admin? %>
+              <%= f.select :status, Request.statuses.keys.to_a, {},  class: 'form-control',:style => "width:140px" %>
+            <% else %>
+              <%= f.text_field :status, :readonly => true, :style => "width:140px", class: 'form-control' %>
+            <% end %>
+          </div>
+  
+          <div class="form-group">
+            <%= f.label :charge_user, '' %>
+            <%= f.text_field :charge_user_name,:readonly => true, class: 'form-control' %>
+          </div>
+  
+  
+      <% else %>  
+        <%= f.hidden_field :status, :value => "新規" %>
+        <%= f.hidden_field :message, :value => '' %>
+        <%= f.hidden_field :charge_user, :value => '' %>
+      <% end %>
+      <div class="right_wrapper">
+        <%= f.submit ' 登録', class: 'btn btn-primary' %>
       </div>
-
-    <% else %>  
-      <%= f.hidden_field :message, :value => '' %>
-      <%= f.hidden_field :charge_user, :value => '' %>
     <% end %>
-
-    <%= f.submit '登録', class: 'btn btn-primary btn-block' %>
-  <% end %>
+  </div>
+  
 
 

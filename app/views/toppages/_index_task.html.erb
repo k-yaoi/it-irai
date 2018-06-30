@@ -1,14 +1,16 @@
-  <h3><%= current_user.name %>さんのタスク </h3>
+  <h3><font color="blue"><%= current_user.name %>さんに割当てられたタスクは <%= @tasks.count %>件あります </font></h3>
   
   <table class="table table-striped">
-    <tr class="info">
+    <tr class="success">
       <th>タイトル</th>
       <th>依頼者</th>
       <th>メール</th>
+      <th>部署</th>
       <th>期日</th>
       <th>作成日</th>
       <th>ステータス</th>
       <th>詳細</th>
+      <th>編集</th>
   
     </tr>
     <% @tasks.each do |t| %>
@@ -16,11 +18,13 @@
         <td><%= t.title %></td>
         <td><%= t.user.name %></td>
         <td><%= t.user.email %></td>
+        <td><%= t.user.dept %></td>
         <td><%= t.limit_date.strftime("%Y/%m/%d") %></td>
         <td><%= t.created_at.strftime("%Y/%m/%d %H:%M") %></td>
         <td><%= t.status %></td>
 
-        <td><%= link_to '詳細', t , class: 'btn btn-sm btn-success'%></td>
+        <td><%= link_to '', t , class: 'btn btn-sm btn-success glyphicon glyphicon-list-alt'%></td>
+        <td><%= link_to '', edit_request_path(t)  , class: 'btn btn-sm btn-primary glyphicon glyphicon-pencil'%></td>
         
       </tr>
     <% end %>

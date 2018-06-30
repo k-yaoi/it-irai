@@ -3,14 +3,14 @@
   <p><%= current_user.role %> <%= current_user.name %>　さん</p>
 
    <div class="center jumbotron">
-    <div class="text-center">
-      <%= link_to '新規に依頼する', new_request_path, class: 'btn btn-lg btn-primary' %>
+    <div class="button_wrapper">
+      <%= link_to ' 新規に依頼する', new_request_path, class: 'btn btn-lg btn-primary glyphicon glyphicon-edit' %>
     </div>
   </div>
 
   <% if @requests.exists? %>
 
-    <h3><%= current_user.name %>さんの依頼状況 </h3>
+    <h3><%= current_user.name %>さんの依頼は <%= @requests.count %>件あります</h3>
     <table class="table table-striped">
       <tr class="warning">
         <th>タイトル</th>
@@ -31,13 +31,13 @@
           <td><%= request.status %></td>
           <td><%= request.charge_user_name %> </td>
         
-          <td><%= link_to '詳細', request , class: 'btn btn-sm btn-success'%></td>
+          <td><%= link_to '詳細', request , class: 'btn btn-sm btn-success '%></td>
           
         </tr>
       <% end %>
     </table>
   <% else %>
-    <p><%= current_user.name %>さんの依頼はありません。 </p>
+    <p>(<%= current_user.name %>さんの依頼はありません) </p>
   <% end %>
   
   <% if current_user.admin? %>

@@ -1,73 +1,69 @@
-<h1>id: <%= @request.id %> の詳細ページ</h1>
-<%= @request.title %> 
-<%= @request.status %> 
+<h1>依頼詳細</h1>
 
    <form class="form-horizontal" >
 
   	<div class="form-group">
   		<label class="col-sm-2 control-label" for="InputText">依頼者</label>
   		<div class="col-sm-10">
-  			<input type="text" class="form-control" id="InputText" value=<%=  @user.name %> readonly>
+  			<input type="text" class="form-control" id="InputText" readonly="readonly" value=<%=  @user.name %>>
   		</div>
 		</div>
 
   	<div class="form-group">
   		<label class="col-sm-2 control-label" for="InputText">タイトル</label>
   		<div class="col-sm-10">
-  			<input type="text" class="form-control" id="InputText" value=<%= @request.title  %> readonly >
+  			<input type="text" class="form-control" id="InputText" readonly="readonly" value=<%= @request.title  %> >
   		</div>
 		</div>
 
   	<div class="form-group">
   		<label class="col-sm-2 control-label" for="InputText">期日</label>
   		<div class="col-sm-10">
-  			<input type="text" class="form-control" id="InputText" value=<%= @request.limit_date %> readonly>
+  			<input type="text" class="form-control" id="InputText" readonly="readonly" value=<%= @request.limit_date %> >
   		</div>
   	</div>
 
   	<div class="form-group">
   		<label class="col-sm-2 control-label" for="InputText">内容</label>
   		<div class="col-sm-10">
-  			<input type="textarea" class="form-control" id="InputTextarea" value=<%= @request.description %> readonly>
+  			<input type="textarea" class="form-control" id="InputTextarea" readonly="readonly" value=<%= @request.description %>>
   		</div>
   	</div>
 
   	<div class="form-group">
   		<label class="col-sm-2 control-label" for="InputText">状況</label>
   		<div class="col-sm-10">
-  			<input type="text" class="form-control" id="InputText" value=<%= @request.status %> readonly>
+  			<input type="text" class="form-control" id="InputText" readonly="readonly" value=<%= @request.status %>>
   		</div>
 
 		</div>
   	<div class="form-group">
   		<label class="col-sm-2 control-label" for="InputText">担当者</label>
   		<div class="col-sm-10">
-  			<input type="text" class="form-control" id="InputText" value=<%= @request.charge_user %> readonly>
+  			<input type="text" class="form-control" id="InputText" readonly="readonly" value=<%= @request.charge_user_name %>  >
   		</div>
 		</div>
 
 
   	<div class="form-group">
   		<label class="col-sm-2 control-label" for="InputText">回答内容</label>
-  	<% if @request.message.nil? %>
   		<div class="col-sm-10">
-  			<input type="text" class="form-control" id="InputText" value="" readonly>
-  		</div>
-		<% else %>
-  		<div class="col-sm-10">
-  			<input type="text" class="form-control" id="InputText" value=<%= @request.message %> readonly>
-  		</div>
-		<% end %>
-		
+  			<input type="text" class="form-control" id="InputText" readonly="readonly" value=<%= @request.message %> >
+			</div>
 		</div>
+
 
   </form>
 
-<%= link_to "編集", edit_request_path(@request), class: 'btn btn-primary'  %>
 
-<!--削除ボタンは、管理者モードの場合のみ表示される-->
-<% if current_user.admin? %>    
-    <%= link_to "削除", @request, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger' %>
-<% end %>
-<br>
-<%= link_to '一覧に戻る', root_path %>
+
+	<%= link_to "編集", edit_request_path(@request), class: 'btn btn-primary'  %>
+	
+	<!--削除ボタンは、管理者モードの場合のみ表示される-->
+	<% if current_user.admin? %>    
+	    <%= link_to "削除", @request, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger' %>
+	<% end %>
+	<br>
+	<%= link_to '一覧に戻る', root_path %>
+
+</div>

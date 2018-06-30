@@ -1,36 +1,67 @@
 <h1>■依頼一覧</h1>
 
+<div class="container">
+  
+  <div　class="row col-xs-8"> 
+    <div class="panel-group">
+      <div class="panel panel-default">
+        
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <a data-toggle="collapse" data-parent="#sampleAccordion" href="#sampleAccordionCollapse1">
+              検索条件
+            </a>
+          </h3>
+        </div>
 
-<div> 
+        <div class="panel-body">
+          <%= form_tag requests_path, :method => 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
+            <p>
+              <%= label_tag :name, "タイトル" %>
+              <%= text_field_tag :title, params[:title] %>
+              <%= label_tag :name, "ステータス" %>
+              <%= select_tag :status, options_for_select(Request.statuses, :selected => params[:status]), include_blank: true %>
 
-<table class="table table-striped">
-  <tr>
-    <th>タイトル</th>
-    <th>依頼者</th>
-    <th>依頼者所属</th>
-    <th>期日</th>
-    <th>作成日</th>
-    <th>ステータス</th>
-    <th>MIT担当者</th>
-    <th>詳細</th>
-    <th>　</th>
+              <%= submit_tag "検索", :name => nil %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  </tr>
-  <% @requests.each do |request| %>
+
+  <div class="row col-xs-12"> 
+  
+  <table class="table table-striped">
     <tr>
-      <td><%= request.title %></td>
-      <td><%= request.user.name %></td>
-      <td><%= request.user.dept %></td>
-      <td><%= request.limit_date %></td>
-      <td><%= request.created_at %></td>
-      <td><%= request.status %></td>
-      <td><%= request.charge_user.to_s %> </td>
-    
-      <td><%= link_to '詳細', request , class: 'btn btn-sm btn-success'%></td>
-      
-      <td id="request-button-<%= request.id %>"><%= render 'requests/request_button', request: request if current_user.admin?%></td>
+      <th>タイトル</th>
+      <th>依頼者</th>
+      <th>依頼者所属</th>
+      <th>期日</th>
+      <th>作成日</th>
+      <th>ステータス</th>
+      <th>MIT担当者</th>
+      <th>詳細</th>
+      <th>　</th>
+  
     </tr>
-  <% end %>
-</table>
-
+    <% @requests.each do |request| %>
+      <tr>
+        <td><%= request.title %></td>
+        <td><%= request.user.name %></td>
+        <td><%= request.user.dept %></td>
+        <td><%= request.limit_date %></td>
+        <td><%= request.created_at %></td>
+        <td><%= request.status %></td>
+        <td><%= request.charge_user_name %> </td>
+  
+        <td><%= link_to '詳細', request , class: 'btn btn-sm btn-success'%></td>
+        
+        <td id="request-button-<%= request.id %>"><%= render 'requests/request_button', request: request if current_user.admin?%></td>
+      </tr>
+    <% end %>
+  </table>
+  
+  </div>
 </div>

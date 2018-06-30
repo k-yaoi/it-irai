@@ -12,7 +12,7 @@
 
     <h3><%= current_user.name %>さんの依頼状況 </h3>
     <table class="table table-striped">
-      <tr>
+      <tr class="warning">
         <th>タイトル</th>
         <th>内容</th>
         <th>期日</th>
@@ -29,7 +29,7 @@
           <td><%= request.limit_date.strftime("%Y/%m/%d") %></td>
           <td><%= request.created_at.strftime("%Y/%m/%d %H:%M") %></td>
           <td><%= request.status %></td>
-          <td><%= request.charge_user.to_s %> </td>
+          <td><%= request.charge_user_name %> </td>
         
           <td><%= link_to '詳細', request , class: 'btn btn-sm btn-success'%></td>
           
@@ -40,9 +40,11 @@
     <p><%= current_user.name %>さんの依頼はありません。 </p>
   <% end %>
   
-<div>
-  <%= render 'index_task', tasks: @tasks %>
-</div>
+  <% if current_user.admin? %>
+    <div>
+      <%= render 'index_task', tasks: @tasks %>
+    </div>
+  <% end %>
 
 
 <% else %>
